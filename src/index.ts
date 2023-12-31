@@ -28,6 +28,7 @@ const server = Bun.serve<User>({
 			ws.publish(ws.data.room, `${ws.data.username}: ${message}`)
 		},
 		close(ws) {
+			if (!ws.data.room) return
 			server.publish(ws.data.room, `${ws.data.username} has left the room`)
 		},
 	},
